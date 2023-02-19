@@ -28,34 +28,31 @@ function renderImages(gallery) {
     .join("");
 }
 
+let instance = "";
+
 function onOpenModal(event) {
   window.addEventListener("keydown", modalCloseEsc);
   event.preventDefault();
 
-  const isGalleryElement = event.target.classList.contains("gallery__image");
-  if (!isGalleryElement) {
+  const thisSearchElement = event.target.classList.contains("gallery__image");
+  if (!thisSearchElement) {
     return;
   }
 
   const originalImage = event.target.dataset.source;
-  const instance = basicLightbox.create(`
+  instance = basicLightbox.create(`
     <img src="${originalImage}" width="800" height="600">
 `);
-
   instance.show();
 }
 
-function modalClose(event) {
+function modalClose() {
   window.removeEventListener("keydown", modalCloseEsc);
 }
 
 function modalCloseEsc(event) {
-  // modalClose()
-  console.log(event.code);
   if (event.code === "Escape") {
-    modalClose();
     instance.close();
-    // console.log(event.code)
+    modalClose();
   }
-  // return
 }
